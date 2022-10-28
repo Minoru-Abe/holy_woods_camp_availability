@@ -6,7 +6,7 @@ import subprocess
 import datetime
 import line_util
 
-EXCEL = "C:/git/holy_woods_camp_availavility/holy_woods_camp_availability.xlsx"
+EXCEL = "C:/git/holy_woods_camp_availability/holy_woods_camp_availability.xlsx"
 EXCEL_SHEET = "availability"
 CHAR_MONTH = "月"
 CHAR_TREE = "ツリー"
