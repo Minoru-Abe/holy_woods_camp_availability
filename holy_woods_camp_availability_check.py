@@ -61,9 +61,13 @@ pyautogui.hotkey('alt', 'f4')
 wb = openpyxl.load_workbook(OUTPUT_FILE_NAME)
 sheet = wb[EXCEL_SHEET]
 
-hitflag = -1
-tree_house_row_list = [[0]* 2]*3
-print(tree_house_row_list)
+#Make a list to check what row is related to tree house availability.
+#The list is two dimensional list as followings
+#[month, row_number_of_treehouse_availability]
+#For example like the following
+#[[10, 20], [11, 40], [12, 60]]
+#The above example shows tree house availability in October is written in row number 20 in the excel, 40 for November, 60 for December
+tree_house_row_list = []
 month = 0
 tree_row = 0
 for rownum in range(1, 150):
@@ -72,15 +76,10 @@ for rownum in range(1, 150):
         continue
     if CHAR_MONTH in cellvalue:
         month = cellvalue.replace(LINECODE,"").replace(CHAR_MONTH,"")
-        hitflag = hitflag + 1
     if CHAR_TREE in cellvalue:
-        tree_row = rownum
-        list = [month, tree_row]
-        tree_house_row_list[hitflag] = list
-
-
-print(tree_house_row_list)
-
+        tree_row_number = rownum
+        list = [month, tree_row_number]
+        tree_house_row_list.append(list)
 
 #Create availability table
 
