@@ -1,12 +1,15 @@
+import sys
 import pyautogui
 import webbrowser
 import openpyxl
 from time import sleep
 import subprocess
 import datetime
-import line_util
 import os
 import jpholiday
+sys.path.append("../line_utility")
+import line_util
+
 
 cwd = os.getcwd()
 CHAR_MONTH = "月"
