@@ -10,4 +10,4 @@ class SendNotification:
         url = "https://notify-api.line.me/api/notify"
         headers = {"Authorization": "Bearer " + access_token}
         payload = {"message": message}
-        r = requests.post(url, headers=headers, params=payload,)
+        #r = requests.post(url, headers=headers, params=payload,)

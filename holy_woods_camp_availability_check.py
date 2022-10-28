@@ -8,8 +8,6 @@ import line_util
 import os
 
 cwd = os.getcwd()
-EXCEL = cwd + "/holy_woods_camp_availability.xlsx"
-EXCEL_SHEET = "availability"
 CHAR_MONTH = "月"
 CHAR_TREE = "ツリー"
 header_column = 1
@@ -20,19 +18,23 @@ CHAR_HOLIDAY = "休"
 CHAR_AVAILABLE = "Available"
 CHAR_UNAVAILABLE = "Unavailable"
 LINE_MAX_NO = 16
+OUTPUT_FILE_NAME = "holy_woods_camp_availability.xlsx"
+EXCEL = cwd + "/" + OUTPUT_FILE_NAME
+EXCEL_SHEET = "availability"
+
 #open holy woods availability homepage
 holy_woods_url_file = open("param_holy_woods_url.csv", "r")
 file_header = next(holy_woods_url_file)
 url = holy_woods_url_file.readline().replace(LINECODE,"")
 webbrowser.open(url)
 
-#Sleep
+#Sleep to wait for the homepage opening
 sleep(3)
 
 #Click to enable the page
 pyautogui.click(100,100)
 
-#Copy the availability by pressing CNTL+A & CNTL+C
+#Copy the availability homepage by pressing CNTL+A & CNTL+C
 pyautogui.hotkey('ctrl', 'a')
 pyautogui.hotkey('ctrl', 'c')
 
@@ -40,7 +42,7 @@ pyautogui.hotkey('ctrl', 'c')
 wb = openpyxl.Workbook()
 sheet = wb.active
 sheet.title = EXCEL_SHEET
-wb.save("holy_woods_camp_availability.xlsx")
+wb.save(OUTPUT_FILE_NAME)
 
 #Open the created excel file
 subprocess.Popen(["start",EXCEL], shell=True)
