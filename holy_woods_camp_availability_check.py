@@ -82,24 +82,36 @@ for rownum in range(1, 150):
         tree_house_row_list.append(list)
 
 #Create availability table
-
-availability_year = datetime.date.today().year
-
+#This part will make a four dimensional list like the following
+#[["2022", "10", "01", ""], ["2022", "10", "02", "✕"], .....]
+#Each contens includes year, month, day and availability on holy woods homepage
+#Regarding the above example, tree house is available on 2022/10/01, not available on 2022/10/02, something like that.
+#This list also includes some wrong date like 2022/02/31 since this part will simply search the excel file from column 2 to 32 for each row
+current_year = datetime.date.today().year
 row_count = 0
 result_list = []
 for tree_house in tree_house_row_list:
     row_count = row_count + 1
     availability_month = format(int(tree_house[0]),"02")
     target_row = tree_house[1]
-    for availability_day in range(1, 32):
-        availability = sheet.cell(column=availability_day+1, row=target_row).value
+    for day in range(1, 32):
+        availability = sheet.cell(column=day+1, row=target_row).value
+        #Set availability based on the character like ✕ or 休 on the homepage
         if availability is None:
             availability = CHAR_AVAILABLE
         elif CHAR_NOT_AVAILABLE in availability or CHAR_HOLIDAY in availability:
             availability = CHAR_UNAVAILABLE
         else:
             availability = CHAR_AVAILABLE
-        result_list.append([str(availability_year), availability_month, format(availability_day,"02"), availability])
+        #Convert year if the month is January or February. It should be next year from current year in some cases.
+        if row_count == 2 and availability_month == "01":
+            availability_year = str(current_year + 1)
+        elif row_count == 3 and (availability_month == "01" or availability_month == "02"):
+            availability_year = str(current_year + 1)
+        else:
+            availability_year = str(current_year)
+        availability_day = format(day,"02")
+        result_list.append([availability_year, availability_month, availability_day, availability])
 print(result_list)
 
 sent_list = []
