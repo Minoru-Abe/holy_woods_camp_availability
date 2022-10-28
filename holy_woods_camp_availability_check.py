@@ -6,6 +6,7 @@ import subprocess
 import datetime
 import line_util
 import os
+import jpholiday
 
 cwd = os.getcwd()
 CHAR_MONTH = "月"
@@ -126,11 +127,13 @@ for result in result_list:
     availability = result[3]
     if int(current_date) <= int(target_date):
         try:
-            weekday = datetime.datetime(int(result[0]), int(result[1]), int(result[2])).weekday()
-            #Return Saturday availability based on weekday
-            if weekday == 5:
-                result_line = target_date + COMMA + availability
-                sent_list.append(result_line)
+            target_date_dateobject = datetime.datetime(int(result[0]), int(result[1]), int(result[2]))
+            target_date_nextday_dateobject = target_date_dateobject + datetime.timedelta(days=1)
+            #When the target date is Saturday/Sunday/holiday and the next day is also Saturday/Sunday/holiday return the availability
+            if target_date_dateobject.weekday() >= 5 or jpholiday.is_holiday(target_date_dateobject):
+                if target_date_nextday_dateobject.weekday() >= 5 or jpholiday.is_holiday(target_date_nextday_dateobject):
+                    result_line = target_date + COMMA + availability
+                    sent_list.append(result_line)
         except ValueError:
             continue
 print(sent_list)
