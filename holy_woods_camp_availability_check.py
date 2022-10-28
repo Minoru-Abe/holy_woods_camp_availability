@@ -21,7 +21,10 @@ CHAR_AVAILABLE = "Available"
 CHAR_UNAVAILABLE = "Unavailable"
 LINE_MAX_NO = 16
 #open holy woods availability homepage
-webbrowser.open("https://holywoodscamp.jimdofree.com/%E3%81%94%E4%BA%88%E7%B4%84-1/%E7%A9%BA%E3%81%8D%E7%8A%B6%E6%B3%81/")
+holy_woods_url_file = open("param_holy_woods_url.csv", "r")
+file_header = next(holy_woods_url_file)
+url = holy_woods_url_file.readline().replace(LINECODE,"")
+webbrowser.open(url)
 
 #Sleep
 sleep(3)
