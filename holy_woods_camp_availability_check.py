@@ -5,8 +5,10 @@ from time import sleep
 import subprocess
 import datetime
 import line_util
+import os
 
-EXCEL = "C:/git/holy_woods_camp_availability/holy_woods_camp_availability.xlsx"
+cwd = os.getcwd()
+EXCEL = cwd + "/holy_woods_camp_availability.xlsx"
 EXCEL_SHEET = "availability"
 CHAR_MONTH = "月"
 CHAR_TREE = "ツリー"
