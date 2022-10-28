@@ -115,19 +115,25 @@ for tree_house in tree_house_row_list:
 print(result_list)
 
 sent_list = []
-#Check whether the date is Saturday or not, and if Saturday send out SendNotification
+#Check whether the date is Saturday or not, and if Saturday send out notification
+#If the date is the past we don't send out notification
+
+#Get current date with yyyymmdd format
+current_date = "{0:%Y%m%d}".format(datetime.datetime.now())
+
 for result in result_list:
     target_date = result[0] + result[1] + result[2]
     availability = result[3]
-    try:
-        weekday = datetime.datetime(int(result[0]), int(result[1]), int(result[2])).weekday()
-        #Return Saturday availability based on weekday
-        if weekday == 5:
-            result_line = target_date + COMMA + availability
-            sent_list.append(result_line)
-    except ValueError:
-        continue
-
+    if int(current_date) <= int(target_date):
+        try:
+            weekday = datetime.datetime(int(result[0]), int(result[1]), int(result[2])).weekday()
+            #Return Saturday availability based on weekday
+            if weekday == 5:
+                result_line = target_date + COMMA + availability
+                sent_list.append(result_line)
+        except ValueError:
+            continue
+print(sent_list)
 
 #Send the result message to line
 message_counter = 0
