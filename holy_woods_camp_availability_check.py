@@ -44,21 +44,21 @@ sheet = wb.active
 sheet.title = EXCEL_SHEET
 wb.save(OUTPUT_FILE_NAME)
 
-#Open the created excel file
+#Open the created excel file with subprocess
 subprocess.Popen(["start",EXCEL], shell=True)
 
-#Sleep
+#Sleep to wait for the excel file opening
 sleep(2)
 
-#Paste copied availability information
+#Paste copied availability information to the excel and close the excel file
 pyautogui.hotkey('ctrl', 'v')
 sleep(1)
 pyautogui.hotkey('ctrl', 's')
 sleep(1)
 pyautogui.hotkey('alt', 'f4')
 
-#Open the created excel file again
-wb = openpyxl.load_workbook("holy_woods_camp_availability.xlsx")
+#Open the created excel file with openpyxl
+wb = openpyxl.load_workbook(OUTPUT_FILE_NAME)
 sheet = wb[EXCEL_SHEET]
 
 hitflag = -1
