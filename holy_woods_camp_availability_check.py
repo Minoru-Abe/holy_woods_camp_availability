@@ -123,7 +123,6 @@ for tree_house in tree_house_row_list:
             availability_year = str(current_year)
         availability_day = format(day,"02")
         result_list.append([availability_year, availability_month, availability_day, availability])
-print(result_list)
 
 sent_list = []
 #Check whether the date is Saturday or not, and if Saturday send out notification
@@ -146,7 +145,8 @@ for result in result_list:
                     sent_list.append(result_line)
         except ValueError:
             continue
-print(sent_list)
+for sent_message in sent_list:
+    print(sent_message)
 
 #Open access token file and read the access token
 accesstokenfile = open(LINE_ACCESS_TOKEN_FILE, "r")
