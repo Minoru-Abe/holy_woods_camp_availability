@@ -169,3 +169,6 @@ if send_line_flag == "True":
 #For the case like there are only three messages, or there are 7 messages (not a multiple of 4)
     if message_counter > 0:
         message_sender.send_message(messages_to_be_sent, access_token)
+
+holy_woods_url_file.close()
+accesstokenfile.close()
