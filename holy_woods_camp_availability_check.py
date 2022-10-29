@@ -26,6 +26,7 @@ OUTPUT_FILE_NAME = "holy_woods_camp_availability.xlsx"
 EXCEL = cwd + "/" + OUTPUT_FILE_NAME
 EXCEL_SHEET = "availability"
 LINE_ACCESS_TOKEN_FILE = "line_notify_access_token.csv"
+SEND_MESSAGE_HEADER = "***holy woods tree house availability***"
 
 #Read argument from command line
 #1st argument is to send notification to line. The values are True or False
@@ -158,7 +159,8 @@ access_token = accesstokenfile.readline().replace(LINECODE,"")
 if send_line_flag == "True":
     message_counter = 0
     message_sender = line_util.SendNotification
-    messages_to_be_sent = ""
+    messages_to_be_sent = SEND_MESSAGE_HEADER + LINECODE
+    message_counter += 1
     for message in sent_list:
         messages_to_be_sent = messages_to_be_sent + message + LINECODE
         message_counter += 1
