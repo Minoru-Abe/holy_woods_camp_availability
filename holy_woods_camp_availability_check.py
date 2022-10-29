@@ -25,6 +25,13 @@ LINE_MAX_NO = 16
 OUTPUT_FILE_NAME = "holy_woods_camp_availability.xlsx"
 EXCEL = cwd + "/" + OUTPUT_FILE_NAME
 EXCEL_SHEET = "availability"
+LINE_ACCESS_TOKEN_FILE = "line_notify_access_token.csv"
+
+#Read argument from command line
+#1st argument is to send notification to line. The values are True or False
+args = sys.argv
+send_line_flag = args[1]
+print(send_line_flag)
 
 #open holy woods availability homepage
 holy_woods_url_file = open("param_holy_woods_url.csv", "r")
@@ -141,17 +148,24 @@ for result in result_list:
             continue
 print(sent_list)
 
-#Send the result message to line
-message_counter = 0
-message_sender = line_util.SendNotification
-messages_to_be_sent = ""
-for message in sent_list:
-    messages_to_be_sent = messages_to_be_sent + message + LINECODE
-    message_counter += 1
-    if message_counter == LINE_MAX_NO:
-        message_sender.send_message(messages_to_be_sent)
-        message_counter = 0
-        messages_to_be_sent = ""
+#Open access token file and read the access token
+accesstokenfile = open(LINE_ACCESS_TOKEN_FILE, "r")
+fileheader = next(accesstokenfile)
+access_token = accesstokenfile.readline().replace(LINECODE,"")
+
+
+#If the send flag is true, send the result message to line
+if send_line_flag == "True":
+    message_counter = 0
+    message_sender = line_util.SendNotification
+    messages_to_be_sent = ""
+    for message in sent_list:
+        messages_to_be_sent = messages_to_be_sent + message + LINECODE
+        message_counter += 1
+        if message_counter == LINE_MAX_NO:
+            message_sender.send_message(messages_to_be_sent, access_token)
+            message_counter = 0
+            messages_to_be_sent = ""
 #For the case like there are only three messages, or there are 7 messages (not a multiple of 4)
-if message_counter > 0:
-    message_sender.send_message(messages_to_be_sent)
+    if message_counter > 0:
+        message_sender.send_message(messages_to_be_sent, access_token)
