@@ -43,6 +43,10 @@ webbrowser.open(url)
 #Sleep to wait for the homepage opening
 sleep(3)
 
+#Maximize the web browser
+pyautogui.hotkey('win', 'up')
+sleep(1)
+
 #Click to enable the page
 pyautogui.click(100,100)
 
