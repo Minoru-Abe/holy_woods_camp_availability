@@ -53,6 +53,8 @@ pyautogui.click(100,100)
 #Copy the availability homepage by pressing CNTL+A & CNTL+C
 pyautogui.hotkey('ctrl', 'a')
 pyautogui.hotkey('ctrl', 'c')
+pyautogui.hotkey('ctrl', 'w')
+sleep(1)
 
 #Create output excel file
 wb = openpyxl.Workbook()
