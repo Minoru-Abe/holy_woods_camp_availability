@@ -41,11 +41,11 @@ url = holy_woods_url_file.readline().replace(LINECODE,"")
 webbrowser.open(url)
 
 #Sleep to wait for the homepage opening
-sleep(3)
+sleep(5)
 
 #Maximize the web browser
 pyautogui.hotkey('win', 'up')
-sleep(1)
+sleep(2)
 
 #Click to enable the page
 pyautogui.click(100,100)
@@ -54,7 +54,7 @@ pyautogui.click(100,100)
 pyautogui.hotkey('ctrl', 'a')
 pyautogui.hotkey('ctrl', 'c')
 pyautogui.hotkey('ctrl', 'w')
-sleep(1)
+sleep(3)
 
 #Create output excel file
 wb = openpyxl.Workbook()
@@ -66,7 +66,7 @@ wb.save(OUTPUT_FILE_NAME)
 subprocess.Popen(["start",EXCEL], shell=True)
 
 #Sleep to wait for the excel file opening
-sleep(2)
+sleep(3)
 
 #Paste copied availability information to the excel and close the excel file
 pyautogui.hotkey('ctrl', 'v')
@@ -74,7 +74,7 @@ sleep(1)
 pyautogui.hotkey('ctrl', 's')
 sleep(1)
 pyautogui.hotkey('alt', 'f4')
-
+sleep(1)
 #Open the created excel file with openpyxl
 wb = openpyxl.load_workbook(OUTPUT_FILE_NAME)
 sheet = wb[EXCEL_SHEET]
